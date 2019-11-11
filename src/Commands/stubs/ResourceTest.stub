@@ -1,0 +1,69 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\DummyName;
+use App\Nova\DummyName as CurrentResource;
+
+class DummyClass extends NovaResourceTestCase
+{
+    /**
+     * Model Class of the resource.
+     *
+     * @var string
+     */
+    protected $modelClass = DummyName::class;
+
+    /**
+     * Resource class.
+     *
+     * @var string
+     */
+    protected $resourceClass = CurrentResource::class;
+
+    /**
+     * Remap field to what Nova is expecting.
+     *
+     * @param Booking $resource
+     * @param array   $data
+     *
+     * @return array
+     */
+    protected function remapResource($resource, $data = [])
+    {
+        return [
+            //...
+        ];
+    }
+
+    /** @test */
+    public function it_can_query_this_resource()
+    {
+        factory(DummyName::class)->create();
+
+        $this->getResources()
+          ->assertOk();
+    }
+
+    /** @test */
+    public function it_can_store_this_resource()
+    {
+        $this->storeResource();
+    }
+
+    /** @test */
+    public function it_can_update_this_resource()
+    {
+        $resource = factory(DummyName::class)->create();
+
+        $this->updateResource($resource);
+    }
+
+    /** @test */
+    public function it_can_delete_this_resource()
+    {
+        $resource = factory(DummyName::class)->create();
+
+        $this->deleteResource($resource);
+    }
+}

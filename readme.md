@@ -5,11 +5,22 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/romegadigital/nova-testing-helper.svg?style=flat-square)](https://packagist.org/packages/romegadigital/nova-testing-helper)
 
 ## Install
-`composer require romegadigital/nova-testing-helper`
+Add the following to your `composer.json`  and run `composer require romegadigital/nova-testing-helper --dev`
 
-Publish NovaResourceTest with `nova:resource-test` to get started.
+```json
+//...
+"repositories": [
+  {
+    "type": "git",
+    "url": "git@gitlab.com:romegadigitaltools/nova-test-suite.git"
+  }
+]
+```
 
 ## Usage
+### Generate Resource Test Cases
+To get you started run `php artisan nova:test resource_name`. This will generate a Resource test and publish the `NovaResourceTestCase` if it was not already published.
+
 ### expectedStatus
 
 ### requests

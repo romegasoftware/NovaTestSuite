@@ -4,6 +4,7 @@ namespace Romegadigital\NovaTestingHelper;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Support\DeferrableProvider;
+use Romegadigital\NovaTestingHelper\Commands\CreateResourceTestCase;
 use Romegadigital\NovaTestingHelper\Commands\PublishNovaResourceTestCase;
 
 class NovaTestingHelperServiceProvider extends ServiceProvider implements DeferrableProvider
@@ -16,6 +17,7 @@ class NovaTestingHelperServiceProvider extends ServiceProvider implements Deferr
         if ($this->app->runningInConsole()) {
             $this->commands([
                 PublishNovaResourceTestCase::class,
+                CreateResourceTestCase::class,
             ]);
         }
     }
@@ -36,6 +38,7 @@ class NovaTestingHelperServiceProvider extends ServiceProvider implements Deferr
     {
         return [
             PublishNovaResourceTestCase::class,
+            CreateResourceTestCase::class,
         ];
     }
 }

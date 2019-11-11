@@ -40,6 +40,8 @@ class PublishNovaResourceTestCase extends Command
      */
     public function handle()
     {
+        $this->info('Publishing NovaResourceTestCase');
+
         if (! $this->files->isDirectory($directory = base_path('tests/Feature/Nova'))) {
             $this->files->makeDirectory($directory, 0755, true);
         }
@@ -48,5 +50,7 @@ class PublishNovaResourceTestCase extends Command
             __DIR__ . '/stubs/NovaResourceTestCase.stub',
             $directory . '/NovaResourceTestCase.php'
         );
+
+        $this->info('Published NovaResourceTest');
     }
 }

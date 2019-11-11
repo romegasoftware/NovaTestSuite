@@ -3,6 +3,7 @@
 namespace Tests\Feature\Nova;
 
 use Tests\TestCase;
+use Laravel\Nova\Nova;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Romegadigital\NovaTestingHelper\Traits\InteractsWithNovaResources;
 
@@ -31,5 +32,16 @@ abstract class NovaResourceTestCase extends TestCase
         if ('' === $this->modelClass || '' === $this->resourceClass) {
             throw new \Exception('No model or resourceClass defined!');
         }
+        
+        Nova::serving(function () {
+            $this->authorization();
+        });
+    }
+
+    protected function authorization()
+    {
+        Nova::auth(function ($user) {
+            return true;
+        });
     }
 }
