@@ -1,0 +1,42 @@
+{
+    "name": "romegadigital/nova-testing-helper",
+    "description": "A description for nova-testing-helper.",
+    "type": "package",
+    "license": "MIT",
+    "keywords": [
+        "laravel"
+    ],
+    "authors": [
+        {
+            "name": "Krishan Koenig",
+            "email": "krishan.koenig@googlemail.com"
+        }
+    ],
+    "require": {
+        "illuminate/support": "^6.0",
+        "illuminate/filesystem": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Romegadigital\\NovaTestingHelper\\": "./src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Romegadigital\\NovaTestingHelper\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Romegadigital\\NovaTestingHelper\\NovaTestingHelperServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0"
+    }
+}
