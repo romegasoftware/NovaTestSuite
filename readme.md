@@ -1,11 +1,11 @@
-# nova-testing-helper
+# nova-test-suite
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Travis](https://img.shields.io/travis/romegadigital/nova-testing-helper.svg?style=flat-square)]()
-[![Total Downloads](https://img.shields.io/packagist/dt/romegadigital/nova-testing-helper.svg?style=flat-square)](https://packagist.org/packages/romegadigital/nova-testing-helper)
+[![Travis](https://img.shields.io/travis/romegadigital/nova-test-suite.svg?style=flat-square)]()
+[![Total Downloads](https://img.shields.io/packagist/dt/romegadigital/nova-test-suite.svg?style=flat-square)](https://packagist.org/packages/romegadigital/nova-test-suite)
 
 ## Install
-Add the following to your `composer.json`  and run `composer require romegadigital/nova-testing-helper --dev`
+Add the following to your `composer.json`  and run `composer require romegadigital/nova-test-suite --dev`
 
 ```json
 //...
@@ -66,7 +66,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 ## Credits
 
 - [Krishan Koenig](https://github.com/romegadigital)
-- [All Contributors](https://github.com/romegadigital/nova-testing-helper/contributors)
+- [All Contributors](https://github.com/romegadigital/nova-test-suite/contributors)
 
 ## Security
 If you discover any security-related issues, please email krishan.koenig@googlemail.com instead of using the issue tracker.

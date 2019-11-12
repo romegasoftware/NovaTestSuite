@@ -1,6 +1,6 @@
 {
-    "name": "romegadigital/nova-testing-helper",
-    "description": "A description for nova-testing-helper.",
+    "name": "romegadigital/nova-test-suite",
+    "description": "Library to help testing laravel nova resources faster",
     "type": "package",
     "license": "MIT",
     "keywords": [
@@ -18,12 +18,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Romegadigital\\NovaTestingHelper\\": "./src"
+            "Romegadigital\\NovaTestSuite\\": "./src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Romegadigital\\NovaTestingHelper\\Tests\\": "tests"
+            "Romegadigital\\NovaTestSuite\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -32,7 +32,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Romegadigital\\NovaTestingHelper\\NovaTestingHelperServiceProvider"
+                "Romegadigital\\NovaTestSuite\\NovaTestSuiteServiceProvider"
             ]
         }
     },

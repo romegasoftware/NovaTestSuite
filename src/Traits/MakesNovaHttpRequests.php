@@ -1,8 +1,8 @@
 <?php
 
-namespace Romegadigital\NovaTestingHelper\Traits;
+namespace Romegadigital\NovaTestSuite\Traits;
 
-use Romegadigital\NovaTestingHelper\NovaTestResponse;
+use Romegadigital\NovaTestSuite\NovaTestResponse;
 
 trait MakesNovaHttpRequests
 {
@@ -12,7 +12,7 @@ trait MakesNovaHttpRequests
      * @param string     $resourceKey
      * @param string|int $key
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Romegadigital\NovaTestSuite\NovaTestResponse
      */
     protected function novaGet($resourceKey, $key = null)
     {
@@ -25,7 +25,7 @@ trait MakesNovaHttpRequests
      * @param string $resourceKey
      * @param array  $data
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Romegadigital\NovaTestSuite\NovaTestResponse
      */
     protected function novaStore($resourceKey, $data)
     {
@@ -38,7 +38,7 @@ trait MakesNovaHttpRequests
      * @param string $resourceKey
      * @param array  $data
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Romegadigital\NovaTestSuite\NovaTestResponse
      */
     protected function novaUpdate($resourceKey, $data)
     {
@@ -51,7 +51,7 @@ trait MakesNovaHttpRequests
      * @param string $resourceKey
      * @param array  $ids
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Romegadigital\NovaTestSuite\NovaTestResponse
      */
     protected function novaDelete($resourceKey, $ids)
     {
@@ -67,7 +67,7 @@ trait MakesNovaHttpRequests
      * @param string $resourceKey
      * @param array  $data
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Romegadigital\NovaTestSuite\NovaTestResponse
      */
     protected function novaRequest($method, $resourceKey, $data = [])
     {

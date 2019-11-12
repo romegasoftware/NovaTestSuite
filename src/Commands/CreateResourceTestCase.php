@@ -1,6 +1,6 @@
 <?php
 
-namespace Romegadigital\NovaTestingHelper\Commands;
+namespace Romegadigital\NovaTestSuite\Commands;
 
 use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;

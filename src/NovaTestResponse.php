@@ -1,6 +1,6 @@
 <?php
 
-namespace Romegadigital\NovaTestingHelper;
+namespace Romegadigital\NovaTestSuite;
 
 use Illuminate\Support\Traits\ForwardsCalls;
 use Illuminate\Foundation\Testing\TestResponse;
