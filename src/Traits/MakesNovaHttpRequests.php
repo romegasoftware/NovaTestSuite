@@ -2,6 +2,8 @@
 
 namespace Romegadigital\NovaTestingHelper\Traits;
 
+use Romegadigital\NovaTestingHelper\NovaTestResponse;
+
 trait MakesNovaHttpRequests
 {
     /**
@@ -59,32 +61,6 @@ trait MakesNovaHttpRequests
     }
 
     /**
-     * Makes a nova store request.
-     *
-     * @param string $suffix
-     * @param array  $data
-     *
-     * @return \Illuminate\Foundation\Testing\TestResponse
-     */
-    protected function novaVendorStore($suffix, $data)
-    {
-        return $this->novaVendorRequest('post', $suffix, $data);
-    }
-
-    /**
-     * Makes a nova store request.
-     *
-     * @param string $suffix
-     * @param array  $data
-     *
-     * @return \Illuminate\Foundation\Testing\TestResponse
-     */
-    protected function novaVendorUpdate($suffix, $data)
-    {
-        return $this->novaVendorRequest('put', $suffix, $data);
-    }
-
-    /**
      * Makes a nova http request.
      *
      * @param string $method
@@ -95,20 +71,9 @@ trait MakesNovaHttpRequests
      */
     protected function novaRequest($method, $resourceKey, $data = [])
     {
-        return $this->{$method}("/nova-api/$resourceKey", $data);
-    }
-
-    /**
-     * Makes a nova vendor http request.
-     *
-     * @param string $method
-     * @param string $suffix
-     * @param array  $data
-     *
-     * @return \Illuminate\Foundation\Testing\TestResponse
-     */
-    protected function novaVendorRequest($method, $suffix, $data = [])
-    {
-        return $this->{$method}("/nova-vendor/$suffix", $data);
+        return new NovaTestResponse(
+            $this->{$method}("/nova-api/$resourceKey", $data),
+            $data
+        );
     }
 }

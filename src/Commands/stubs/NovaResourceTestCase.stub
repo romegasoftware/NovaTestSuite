@@ -11,20 +11,6 @@ abstract class NovaResourceTestCase extends TestCase
 {
     use InteractsWithNovaResources, RefreshDatabase;
 
-    /**
-     * Model Class of the resource.
-     *
-     * @var string
-     */
-    protected $modelClass = '';
-
-    /**
-     * Resource class.
-     *
-     * @var string
-     */
-    protected $resourceClass = '';
-
     public function setUp(): void
     {
         parent::setUp();

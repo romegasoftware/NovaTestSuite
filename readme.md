@@ -21,8 +21,6 @@ Add the following to your `composer.json`  and run `composer require romegadigit
 ### Generate Resource Test Cases
 To get you started run `php artisan nova:test resource_name`. This will generate a Resource test and publish the `NovaResourceTestCase` if it was not already published.
 
-### expectedStatus
-
 ### requests
 
 ### actions
@@ -35,13 +33,9 @@ To get you started run `php artisan nova:test resource_name`. This will generate
 To test if your Nova resource is setup correctly and check if all required fields are set as expected you can use the `setNullValuesOn([..])` method, which assignes every key you enter a `null` value for the next request.
 
 ```php
-$this->expectStatusCode(302)
-  ->setNullValuesOn(['customer', 'number_of_participants'])
+$this->setNullValuesOn(['customer', 'number_of_participants'])
   ->storeResource()
-  ->assertSessionHasErrors([
-    'customer' => 'The customer field is required.',
-    'number_of_participants' => 'The number of participants field is required.',
-  ]);
+  ->assertRequiredFields(['customer', 'number_of_participants']);
 ```
 
 ### Using the default user

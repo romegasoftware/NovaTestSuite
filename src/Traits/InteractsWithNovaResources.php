@@ -23,13 +23,6 @@ trait InteractsWithNovaResources
     protected $resourceClass = '';
 
     /**
-     * Expected status code.
-     *
-     * @var int
-     */
-    private $expectedStatusCode;
-
-    /**
      * Prefilled values for the next request.
      *
      * @var array
@@ -52,18 +45,12 @@ trait InteractsWithNovaResources
      * @param array                               $data
      * @param \Illuminate\Database\Eloquent\Model $user
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Romegadigital\NovaTestingHelper\NovaTestResponse
      */
     protected function getResources($key = '', $user = null)
     {
-        $expectedCode = $this->resetExpectedCode(200);
-
-        $response = $this->actingAs($user ?? $this->getDefaultUser())
+        return $this->actingAs($user ?? $this->getDefaultUser())
             ->novaGet($this->resourceClass::uriKey(), $key);
-
-        $this->dumpErrors($response, $expectedCode);
-
-        return $response->assertStatus($expectedCode ?? 200);
     }
 
     /**
@@ -72,19 +59,14 @@ trait InteractsWithNovaResources
      * @param array                               $data
      * @param \Illuminate\Database\Eloquent\Model $user
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Romegadigital\NovaTestingHelper\NovaTestResponse
      */
     protected function storeResource($data = [], $user = null)
     {
         $resource = $this->mergeData($data, true);
-        $expectedCode = $this->resetExpectedCode(201);
 
-        $response = $this->actingAs($user ?? $this->getDefaultUser(), 'api')
+        return $this->actingAs($user ?? $this->getDefaultUser(), 'api')
             ->novaStore($this->resourceClass::uriKey(), $resource->toArray());
-
-        $this->dumpErrors($response, $expectedCode, $resource);
-
-        return $response->assertStatus($expectedCode ?? 201);
     }
 
     /**
@@ -93,19 +75,14 @@ trait InteractsWithNovaResources
      * @param array                               $data
      * @param \Illuminate\Database\Eloquent\Model $user
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Romegadigital\NovaTestingHelper\NovaTestResponse
      */
     protected function updateResource($data = [], $user = null)
     {
         $resource = $this->mergeData($data);
-        $expectedCode = $this->resetExpectedCode(200);
 
-        $response = $this->actingAs($user ?? $this->getDefaultUser(), 'api')
+        return $this->actingAs($user ?? $this->getDefaultUser(), 'api')
             ->novaUpdate($this->resourceClass::uriKey() . '/' . $resource['id'], $resource->toArray());
-
-        $this->dumpErrors($response, $expectedCode, $resource);
-
-        return $response->assertStatus($expectedCode ?? 200);
     }
 
     /**
@@ -114,19 +91,14 @@ trait InteractsWithNovaResources
      * @param array                               $data
      * @param \Illuminate\Database\Eloquent\Model $user
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Romegadigital\NovaTestingHelper\NovaTestResponse
      */
     protected function deleteResource($data = [], $user = null)
     {
         $resource = Arr::only($this->mergeData($data)->toArray(), 'id');
-        $expectedCode = $this->resetExpectedCode(200);
 
-        $response = $this->actingAs($user ?? $this->getDefaultUser())
+        return $this->actingAs($user ?? $this->getDefaultUser())
             ->novaDelete($this->resourceClass::uriKey(), $resource);
-
-        $this->dumpErrors($response, $expectedCode, $resource);
-
-        return $response->assertStatus($expectedCode ?? 200);
     }
 
     /**
@@ -143,26 +115,12 @@ trait InteractsWithNovaResources
     }
 
     /**
-     * Change the expected status code for the next request.
-     *
-     * @param int $code
-     *
-     * @return self
-     */
-    protected function expectStatusCode($code)
-    {
-        $this->expectedStatusCode = $code;
-
-        return $this;
-    }
-
-    /**
      * Assert json actions.
      *
      * @param string $resourceKey
      * @param array  $actions
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Romegadigital\NovaTestingHelper\NovaTestResponse
      */
     protected function assertHasActions($resourceKey, $actions)
     {
@@ -178,7 +136,7 @@ trait InteractsWithNovaResources
      * @param string $resourceKey
      * @param array  $filters
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Romegadigital\NovaTestingHelper\NovaTestResponse
      */
     protected function assertHasFilters($resourceKey, $filters)
     {
@@ -194,7 +152,7 @@ trait InteractsWithNovaResources
      * @param string $resourceKey
      * @param array  $lenses
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Romegadigital\NovaTestingHelper\NovaTestResponse
      */
     protected function assertHasLenses($resourceKey, $lenses)
     {
@@ -239,20 +197,6 @@ trait InteractsWithNovaResources
     }
 
     /**
-     * Resets expectation code.
-     *
-     * @param int $standard
-     *
-     * @return int
-     */
-    protected function resetExpectedCode($standard)
-    {
-        return tap($this->expectedStatusCode, function () use ($standard) {
-            $this->expectedStatusCode = $standard;
-        });
-    }
-
-    /**
      * Set all keys of this resource to 'null'.
      *
      * @param array|string $keys
@@ -280,23 +224,5 @@ trait InteractsWithNovaResources
         return tap($this->prefillValues, function () {
             $this->prefillValues = [];
         });
-    }
-
-    /**
-     * Dumps errors to easier debug responses from nova.
-     *
-     * @param $response
-     * @param $resource
-     */
-    protected function dumpErrors($response, $expectedCode, $resource = null)
-    {
-        if (app('session.store')->has('errors') && ! in_array($expectedCode, [302])) {
-            dump(app('session.store')->get('errors')->getBag('default'));
-        }
-
-        if (! $response->isSuccessful() && ($expectedCode ?? 200) !== $response->status()) {
-            dump($resource);
-            dump($response->json());
-        }
     }
 }
