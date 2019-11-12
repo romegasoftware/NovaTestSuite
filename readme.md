@@ -21,9 +21,69 @@ Add the following to your `composer.json`  and run `composer require romegadigit
 ### Generate Resource Test Cases
 To get you started run `php artisan nova:test resource_name`. This will generate a Resource test and publish the `NovaResourceTestCase` if it was not already published.
 
+First thing you will need to do after creating a resource tests is filling the `remapResource()` method to map the fieldnames to the nova field names.
+
+```php
+protected function remapResource($resource, $data = [])
+{
+    return [
+        'location' => $resource->location_id,
+        'theme' => $resource->theme_id,
+    ];
+}
+```
+
+The `$resource` parameter is a fresh generated model instance via `factory()` and therefore should hold any necessary values you need. The `$data` parameter is only filled if you call a nova request method with any data like `$this->storeResource(['name' => 'test'])`.
+
 ### requests
+**get resources**
+```php
+// retrieve all available resources = viewing the index page
+$this->getResources();
+
+// retrieve a single resource = viewing a single resource in detail view
+$resource = factory(Resource::class)->create();
+$this->getResources($resource);
+```
+
+**store resources**
+```php
+// resource data is generated behind the scenes with factory()->make()
+$this->storeResource();
+
+// also accepts model classes or arrays
+$resource = factory(Resource::class)->make();
+$this->storeResource($resource);
+$this->storeResource(['name' => 'Vader']);
+```
+
+If a resource is stored successfully the returned status code of the response is `201`.
+
+**update resources**
+```php
+// resource data is generated behind the scenes with factory()->create()
+$this->updateResource(['name' => 'Vader']);
+
+// accepts model classes
+$resource = factory(Resource::class)->create();
+$resource->name = 'Vader';
+$this->updateResource($resource);
+```
+
+**delete resources**
+```php
+// resource data is generated behind the scenes with factory()->create()
+$this->deleteResource();
+
+// also accepts model classes, arrays or integers (ids)
+$resource = factory(Resource::class)->create();
+$this->deleteResource($resource);
+$this->deleteResource(['id' => 12]);
+$this->deleteResource(12);
+```
 
 ### actions
+Use `assertHasActions()
 
 ### lenses
 
@@ -48,6 +108,14 @@ protected function getDefaultUser()
 {
     return $this->yourOwnUser;
 }
+```
+
+### Debugging failing requests
+To debug more easily why your nova request is failing you can chain `dumpErrors()` before you make any assertions about the status. This method will dump all session errors, the sent data and the json response of the request.
+
+```php
+$this->storeResource()
+  ->dumpErrors();
 ```
 
 ## Testing

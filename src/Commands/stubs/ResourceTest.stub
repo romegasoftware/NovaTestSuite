@@ -48,22 +48,44 @@ class DummyClass extends NovaResourceTestCase
     /** @test */
     public function it_can_store_this_resource()
     {
-        $this->storeResource();
+        $this->storeResource()
+            ->assertCreated();
+    }
+
+    /** @test */
+    public function it_fails_to_store_this_resource_without_all_required_fields()
+    {
+        $this->setNullValuesOn($required = [])
+            ->storeResource()
+            ->assertRequiredFields($required)
+            ->assertFailed();
     }
 
     /** @test */
     public function it_can_update_this_resource()
     {
-        $resource = factory(DummyName::class)->create();
+        $response = $this->updateResource(['name' => $name = 'Vader'])
+            ->assertOk();
 
-        $this->updateResource($resource);
+        $this->assertDatabaseHas((new $this->resource)->getTable(), [
+            'id' => $response->json('id'),
+            'name' => $name,
+        ]);
+    }
+
+    /** @test */
+    public function it_fails_to_update_this_resource_if_an_required_field_is_set_to_null()
+    {
+        $this->setNullValuesOn($required = [])
+            ->updateResource()
+            ->assertRequiredFields($required)
+            ->assertFailed();
     }
 
     /** @test */
     public function it_can_delete_this_resource()
     {
-        $resource = factory(DummyName::class)->create();
-
-        $this->deleteResource($resource);
+        $this->deleteResource()
+            ->assertOk();
     }
 }

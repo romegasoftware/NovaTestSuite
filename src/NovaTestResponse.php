@@ -47,7 +47,7 @@ class NovaTestResponse
     public function assertRequiredFields($fields)
     {
         $sessionErrors = collect($fields)->mapWithKeys(function ($field) {
-            return [$field => __('validation.required', ['attribute' => $field])];
+            return [$field => __('validation.required', ['attribute' => str_replace('_', ' ', $field)])];
         })->all();
 
         $this->assertSessionHasErrors($sessionErrors);
@@ -58,7 +58,7 @@ class NovaTestResponse
     /**
      * Dumps errors to easier debug responses from nova.
      */
-    protected function dumpErrors()
+    public function dumpErrors()
     {
         if (app('session.store')->has('errors')) {
             dump(app('session.store')->get('errors')->getBag('default'));
@@ -66,6 +66,8 @@ class NovaTestResponse
 
         dump($this->sentData);
         dump($this->testResponse->json());
+
+        return $this;
     }
 
     /**

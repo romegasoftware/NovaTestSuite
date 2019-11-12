@@ -88,13 +88,17 @@ trait InteractsWithNovaResources
     /**
      * Delete a resource via delete request.
      *
-     * @param array                               $data
+     * @param array|string                        $data
      * @param \Illuminate\Database\Eloquent\Model $user
      *
      * @return \Romegadigital\NovaTestSuite\NovaTestResponse
      */
     protected function deleteResource($data = [], $user = null)
     {
+        if (! is_array($data)) {
+            $data = ['id' => $data];
+        }
+
         $resource = Arr::only($this->mergeData($data)->toArray(), 'id');
 
         return $this->actingAs($user ?? $this->getDefaultUser())
@@ -117,14 +121,13 @@ trait InteractsWithNovaResources
     /**
      * Assert json actions.
      *
-     * @param string $resourceKey
-     * @param array  $actions
+     * @param array $actions
      *
      * @return \Romegadigital\NovaTestSuite\NovaTestResponse
      */
-    protected function assertHasActions($resourceKey, $actions)
+    protected function assertHasActions($actions)
     {
-        return $this->novaRequest('get', $resourceKey . '/actions')
+        return $this->novaRequest('get', $this->resourceClass::getKey() . '/actions')
             ->assertJson([
                 'actions' => $this->mapIndexToName($actions),
             ]);
@@ -133,14 +136,13 @@ trait InteractsWithNovaResources
     /**
      * Assert json filters.
      *
-     * @param string $resourceKey
-     * @param array  $filters
+     * @param array $filters
      *
      * @return \Romegadigital\NovaTestSuite\NovaTestResponse
      */
-    protected function assertHasFilters($resourceKey, $filters)
+    protected function assertHasFilters($filters)
     {
-        return $this->novaRequest('get', $resourceKey . '/filters')
+        return $this->novaRequest('get', $this->resourceClass::getKey() . '/filters')
             ->assertJson(
                 $this->mapIndexToName($filters)
             );
@@ -149,14 +151,13 @@ trait InteractsWithNovaResources
     /**
      * Assert json lenses.
      *
-     * @param string $resourceKey
-     * @param array  $lenses
+     * @param array $lenses
      *
      * @return \Romegadigital\NovaTestSuite\NovaTestResponse
      */
-    protected function assertHasLenses($resourceKey, $lenses)
+    protected function assertHasLenses($lenses)
     {
-        return $this->novaRequest('get', $resourceKey . '/lenses')
+        return $this->novaRequest('get', $this->resourceClass::getKey() . '/lenses')
             ->assertJson(
                 $this->mapIndexToName($lenses)
             );
@@ -219,7 +220,7 @@ trait InteractsWithNovaResources
      *
      * @return array
      */
-    protected function clearPrefilledData()
+    private function clearPrefilledData()
     {
         return tap($this->prefillValues, function () {
             $this->prefillValues = [];

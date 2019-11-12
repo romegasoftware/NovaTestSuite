@@ -37,6 +37,7 @@
         }
     },
     "require-dev": {
-        "orchestra/testbench": "^4.0"
+        "orchestra/testbench": "^4.0",
+        "dms/phpunit-arraysubset-asserts": "^0.1.0"
     }
 }
