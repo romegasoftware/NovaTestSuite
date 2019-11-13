@@ -52,13 +52,17 @@ class DummyClass extends NovaResourceTestCase
             ->assertCreated();
     }
 
-    /** @test */
+    /**
+     * @test
+     *
+     * @dataProvider storeMethodProvider
+     */
     public function it_fails_to_store_this_resource_without_all_required_fields()
     {
         $this->setNullValuesOn($required = [])
             ->storeResource()
             ->assertRequiredFields($required)
-            ->assertFailed();
+            ->assertNovaFailed();
     }
 
     /** @test */
@@ -67,19 +71,10 @@ class DummyClass extends NovaResourceTestCase
         $response = $this->updateResource(['name' => $name = 'Vader'])
             ->assertOk();
 
-        $this->assertDatabaseHas((new $this->resource)->getTable(), [
+        $this->assertDatabaseHas((new DummyName)->getTable(), [
             'id' => $response->json('id'),
             'name' => $name,
         ]);
-    }
-
-    /** @test */
-    public function it_fails_to_update_this_resource_if_an_required_field_is_set_to_null()
-    {
-        $this->setNullValuesOn($required = [])
-            ->updateResource()
-            ->assertRequiredFields($required)
-            ->assertFailed();
     }
 
     /** @test */
@@ -87,5 +82,13 @@ class DummyClass extends NovaResourceTestCase
     {
         $this->deleteResource()
             ->assertOk();
+    }
+
+    public function storeMethodProvider()
+    {
+        return [
+            ['storeResource'],
+            ['updateResource'],
+        ];
     }
 }

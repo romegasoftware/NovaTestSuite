@@ -3,6 +3,7 @@
 namespace Romegadigital\NovaTestSuite;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Romegadigital\NovaTestSuite\Commands\CreateResourceTestCase;
 use Romegadigital\NovaTestSuite\Commands\PublishNovaResourceTestCase;
@@ -27,6 +28,27 @@ class NovaTestSuiteServiceProvider extends ServiceProvider implements Deferrable
      */
     public function boot()
     {
+        TestResponse::macro('dumpErrors', function () {
+            if (app('session.store')->has('errors')) {
+                dump(app('session.store')->get('errors')->getBag('default'));
+            }
+
+            dump($this->json());
+
+            return $this;
+        });
+
+        TestResponse::macro('assertNovaFailed', function () {
+            return $this->assertRedirect();
+        });
+
+        TestResponse::macro('assertRequiredFields', function ($fields) {
+            $sessionErrors = collect($fields)->mapWithKeys(function ($field) {
+                return [$field => __('validation.required', ['attribute' => str_replace('_', ' ', $field)])];
+            })->all();
+
+            return $this->assertSessionHasErrors($sessionErrors);
+        });
     }
 
     /**

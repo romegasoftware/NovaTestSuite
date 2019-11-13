@@ -45,7 +45,7 @@ trait InteractsWithNovaResources
      * @param array                               $data
      * @param \Illuminate\Database\Eloquent\Model $user
      *
-     * @return \Romegadigital\NovaTestSuite\NovaTestResponse
+     * @return \Illuminate\Foundation\Testing\TestResponse
      */
     protected function getResources($key = '', $user = null)
     {
@@ -59,7 +59,7 @@ trait InteractsWithNovaResources
      * @param array                               $data
      * @param \Illuminate\Database\Eloquent\Model $user
      *
-     * @return \Romegadigital\NovaTestSuite\NovaTestResponse
+     * @return \Illuminate\Foundation\Testing\TestResponse
      */
     protected function storeResource($data = [], $user = null)
     {
@@ -75,7 +75,7 @@ trait InteractsWithNovaResources
      * @param array                               $data
      * @param \Illuminate\Database\Eloquent\Model $user
      *
-     * @return \Romegadigital\NovaTestSuite\NovaTestResponse
+     * @return \Illuminate\Foundation\Testing\TestResponse
      */
     protected function updateResource($data = [], $user = null)
     {
@@ -91,7 +91,7 @@ trait InteractsWithNovaResources
      * @param array|string                        $data
      * @param \Illuminate\Database\Eloquent\Model $user
      *
-     * @return \Romegadigital\NovaTestSuite\NovaTestResponse
+     * @return \Illuminate\Foundation\Testing\TestResponse
      */
     protected function deleteResource($data = [], $user = null)
     {
@@ -123,7 +123,7 @@ trait InteractsWithNovaResources
      *
      * @param array $actions
      *
-     * @return \Romegadigital\NovaTestSuite\NovaTestResponse
+     * @return \Illuminate\Foundation\Testing\TestResponse
      */
     protected function assertHasActions($actions)
     {
@@ -138,7 +138,7 @@ trait InteractsWithNovaResources
      *
      * @param array $filters
      *
-     * @return \Romegadigital\NovaTestSuite\NovaTestResponse
+     * @return \Illuminate\Foundation\Testing\TestResponse
      */
     protected function assertHasFilters($filters)
     {
@@ -153,7 +153,7 @@ trait InteractsWithNovaResources
      *
      * @param array $lenses
      *
-     * @return \Romegadigital\NovaTestSuite\NovaTestResponse
+     * @return \Illuminate\Foundation\Testing\TestResponse
      */
     protected function assertHasLenses($lenses)
     {

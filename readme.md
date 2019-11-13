@@ -89,6 +89,14 @@ Use `assertHasActions()
 
 ### filters
 
+### Asserting a request has failed
+Since failed nova request return a redirect with status code `301` we introduced a new method `assertNovaFailed()` which checks for this without having to think about what status code a failed nova response returns.
+
+```php
+$this->storeResource()
+  ->assertNovaFailed();
+```
+
 ### Testing required fields
 To test if your Nova resource is setup correctly and check if all required fields are set as expected you can use the `setNullValuesOn([..])` method, which assignes every key you enter a `null` value for the next request.
 
@@ -111,7 +119,7 @@ protected function getDefaultUser()
 ```
 
 ### Debugging failing requests
-To debug more easily why your nova request is failing you can chain `dumpErrors()` before you make any assertions about the status. This method will dump all session errors, the sent data and the json response of the request.
+To debug more easily why your nova request is failing you can chain `dumpErrors()` before you make any assertions about the status. This method will dump all session errors and the json response of the request.
 
 ```php
 $this->storeResource()
