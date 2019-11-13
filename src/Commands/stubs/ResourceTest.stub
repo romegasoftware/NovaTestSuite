@@ -57,10 +57,10 @@ class DummyClass extends NovaResourceTestCase
      *
      * @dataProvider storeMethodProvider
      */
-    public function it_fails_to_store_this_resource_without_all_required_fields()
+    public function it_fails_to_store_this_resource_without_all_required_fields($saveMethod)
     {
         $this->setNullValuesOn($required = [])
-            ->storeResource()
+            ->$saveMethod()
             ->assertRequiredFields($required)
             ->assertNovaFailed();
     }

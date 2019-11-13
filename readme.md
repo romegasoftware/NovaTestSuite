@@ -126,6 +126,8 @@ $this->storeResource()
   ->dumpErrors();
 ```
 
+**Note:** `dumpErrors()` is only for debugging purposes. It should always be removed before committing any code.
+
 ## Testing
 Run the tests with:
 
