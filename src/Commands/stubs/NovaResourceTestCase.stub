@@ -16,7 +16,7 @@ abstract class NovaResourceTestCase extends TestCase
         parent::setUp();
 
         if ('' === $this->modelClass || '' === $this->resourceClass) {
-            throw new \Exception('No model or resourceClass defined!');
+            throw new \Exception('No [model] or [resourceClass] defined!');
         }
         
         Nova::serving(function () {
