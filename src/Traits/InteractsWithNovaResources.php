@@ -95,7 +95,7 @@ trait InteractsWithNovaResources
      */
     protected function deleteResource($data = [], $user = null)
     {
-        if (! is_array($data)) {
+        if (!is_array($data)) {
             $data = ['id' => $data];
         }
 
@@ -127,7 +127,7 @@ trait InteractsWithNovaResources
      */
     protected function assertHasActions($actions)
     {
-        return $this->novaRequest('get', $this->resourceClass::getKey() . '/actions')
+        return $this->novaRequest('get', $this->resourceClass::uriKey() . '/actions')
             ->assertJson([
                 'actions' => $this->mapIndexToName($actions),
             ]);
@@ -142,7 +142,8 @@ trait InteractsWithNovaResources
      */
     protected function assertHasFilters($filters)
     {
-        return $this->novaRequest('get', $this->resourceClass::getKey() . '/filters')
+        return $this->actingAs($this->getDefaultUser(), 'api')
+            ->novaRequest('get', $this->resourceClass::uriKey() . '/filters')
             ->assertJson(
                 $this->mapIndexToName($filters)
             );
@@ -157,7 +158,8 @@ trait InteractsWithNovaResources
      */
     protected function assertHasLenses($lenses)
     {
-        return $this->novaRequest('get', $this->resourceClass::getKey() . '/lenses')
+        return $this->actingAs($this->getDefaultUser(), 'api')
+            ->novaRequest('get', $this->resourceClass::uriKey() . '/lenses')
             ->assertJson(
                 $this->mapIndexToName($lenses)
             );
@@ -206,7 +208,7 @@ trait InteractsWithNovaResources
      */
     protected function setNullValuesOn($keys)
     {
-        if (! is_array($keys)) {
+        if (!is_array($keys)) {
             $keys = func_get_args();
         }
 
