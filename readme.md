@@ -24,7 +24,7 @@ To get you started run `php artisan nova:test resource_name`. This will generate
 First thing you will need to do after creating a resource tests is filling the `remapResource()` method to map the fieldnames to the nova field names.
 
 ```php
-protected function remapResource($resource, $data = [])
+protected function remapResource($resource)
 {
     return [
         'location' => $resource->location_id,

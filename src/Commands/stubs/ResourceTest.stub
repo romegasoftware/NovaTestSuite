@@ -24,12 +24,11 @@ class DummyClass extends NovaResourceTestCase
     /**
      * Remap field to what Nova is expecting.
      *
-     * @param Booking $resource
-     * @param array   $data
+     * @param object $resource
      *
      * @return array
      */
-    protected function remapResource($resource, $data = [])
+    protected function remapResource($resource)
     {
         return [
             //...

@@ -193,9 +193,11 @@ trait InteractsWithNovaResources
             ? $factory->make()
             : $factory->create();
 
-        return collect($resource)
-            ->merge($this->remapResource($resource, $data))
-            ->merge($data)
+        $merged = collect($resource)
+            ->merge($data);
+
+        return $merged
+            ->merge($this->remapResource($merged))
             ->merge($this->clearPrefilledData());
     }
 
