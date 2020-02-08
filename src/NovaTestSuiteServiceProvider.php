@@ -8,7 +8,7 @@ use Illuminate\Contracts\Support\DeferrableProvider;
 use Romegadigital\NovaTestSuite\Commands\CreateResourceTestCase;
 use Romegadigital\NovaTestSuite\Commands\PublishNovaResourceTestCase;
 
-class NovaTestingHelperServiceProvider extends ServiceProvider implements DeferrableProvider
+class NovaTestSuiteServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Register services.
