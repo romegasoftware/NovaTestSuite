@@ -46,7 +46,7 @@ trait InteractsWithNovaResources
      */
     protected function beDefaultUser()
     {
-        if (!$this->isAuthenticated('api')) {
+        if ($this->isAuthenticated('api')) {
             return $this;
         }
 
