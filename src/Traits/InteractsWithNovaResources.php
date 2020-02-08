@@ -40,16 +40,29 @@ trait InteractsWithNovaResources
     }
 
     /**
+     * Act as default user if not already authenticated.
+     *
+     * @return self
+     */
+    protected function beDefaultUser()
+    {
+        if (!$this->isAuthenticated('api')) {
+            return $this;
+        }
+
+        return $this->actingAs($this->getDefaultUser());
+    }
+
+    /**
      * Get a resource via get request.
      *
      * @param array                               $data
-     * @param \Illuminate\Database\Eloquent\Model $user
      *
      * @return \Illuminate\Foundation\Testing\TestResponse
      */
-    protected function getResources($key = '', $user = null)
+    protected function getResources($key = '')
     {
-        return $this->actingAs($user ?? $this->getDefaultUser())
+        return $this->beDefaultUser()
             ->novaGet($this->resourceClass::uriKey(), $key);
     }
 
@@ -57,15 +70,14 @@ trait InteractsWithNovaResources
      * Store a resource via post request.
      *
      * @param array                               $data
-     * @param \Illuminate\Database\Eloquent\Model $user
      *
      * @return \Illuminate\Foundation\Testing\TestResponse
      */
-    protected function storeResource($data = [], $user = null)
+    protected function storeResource($data = [])
     {
         $resource = $this->mergeData($data, true);
 
-        return $this->actingAs($user ?? $this->getDefaultUser(), 'api')
+        return $this->beDefaultUser()
             ->novaStore($this->resourceClass::uriKey(), $resource->toArray());
     }
 
@@ -73,27 +85,28 @@ trait InteractsWithNovaResources
      * Update a resource via post request.
      *
      * @param array                               $data
-     * @param \Illuminate\Database\Eloquent\Model $user
      *
      * @return \Illuminate\Foundation\Testing\TestResponse
      */
-    protected function updateResource($data = [], $user = null)
+    protected function updateResource($data = [])
     {
         $resource = $this->mergeData($data);
 
-        return $this->actingAs($user ?? $this->getDefaultUser(), 'api')
-            ->novaUpdate($this->resourceClass::uriKey() . '/' . $resource['id'], $resource->toArray());
+        return $this->beDefaultUser()
+            ->novaUpdate(
+                $this->resourceClass::uriKey() . '/' . $resource['id'],
+                $resource->toArray()
+            );
     }
 
     /**
      * Delete a resource via delete request.
      *
      * @param array|string                        $data
-     * @param \Illuminate\Database\Eloquent\Model $user
      *
      * @return \Illuminate\Foundation\Testing\TestResponse
      */
-    protected function deleteResource($data = [], $user = null)
+    protected function deleteResource($data = [])
     {
         if (!is_array($data)) {
             $data = ['id' => $data];
@@ -101,7 +114,7 @@ trait InteractsWithNovaResources
 
         $resource = Arr::only($this->mergeData($data)->toArray(), 'id');
 
-        return $this->actingAs($user ?? $this->getDefaultUser())
+        return $this->beDefaultUser()
             ->novaDelete($this->resourceClass::uriKey(), $resource);
     }
 
@@ -109,11 +122,10 @@ trait InteractsWithNovaResources
      * Remap field to what Nova is expecting.
      *
      * @param \Illuminate\Database\Eloquent\Model $resource
-     * @param array                               $data
      *
      * @return array
      */
-    protected function remapResource($resource, $data = [])
+    protected function remapResource($resource)
     {
         return [];
     }
@@ -127,7 +139,8 @@ trait InteractsWithNovaResources
      */
     protected function assertHasActions($actions)
     {
-        return $this->novaRequest('get', $this->resourceClass::uriKey() . '/actions')
+        return $this->beDefaultUser()
+            ->novaRequest('get', $this->resourceClass::uriKey() . '/actions')
             ->assertJson([
                 'actions' => $this->mapIndexToName($actions),
             ]);
@@ -142,7 +155,7 @@ trait InteractsWithNovaResources
      */
     protected function assertHasFilters($filters)
     {
-        return $this->actingAs($this->getDefaultUser(), 'api')
+        return $this->beDefaultUser()
             ->novaRequest('get', $this->resourceClass::uriKey() . '/filters')
             ->assertJson(
                 $this->mapIndexToName($filters)
@@ -158,7 +171,7 @@ trait InteractsWithNovaResources
      */
     protected function assertHasLenses($lenses)
     {
-        return $this->actingAs($this->getDefaultUser(), 'api')
+        return $this->beDefaultUser()
             ->novaRequest('get', $this->resourceClass::uriKey() . '/lenses')
             ->assertJson(
                 $this->mapIndexToName($lenses)
@@ -193,11 +206,11 @@ trait InteractsWithNovaResources
             ? $factory->make()
             : $factory->create();
 
-        $merged = collect($resource)
+        $preMerged = collect($resource)
             ->merge($data);
 
-        return $merged
-            ->merge($this->remapResource($merged))
+        return $preMerged
+            ->merge($this->remapResource($preMerged))
             ->merge($this->clearPrefilledData());
     }
 

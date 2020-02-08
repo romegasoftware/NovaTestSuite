@@ -24,7 +24,7 @@ class DummyClass extends NovaResourceTestCase
     /**
      * Remap field to what Nova is expecting.
      *
-     * @param object $resource
+     * @param \Illuminate\Database\Eloquent\Model $resource $resource
      *
      * @return array
      */

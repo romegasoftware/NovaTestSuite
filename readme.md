@@ -107,9 +107,9 @@ $this->setNullValuesOn(['customer', 'number_of_participants'])
 ```
 
 ### Using the default user
-By default each nova request method accepts a `User` model which will be used to authenticate the request. The usage of a `User` model per request is optional. If you don't pass a user to the nova request by default a brand new user is created for each request.
+By default each nova request method checks whether a request was already authenticated through `actingAs($user, 'api')`. If no user was provided to authenticate the request we will use the `getDefaultUser()` method to authenticate your request. If you want to be explicit about using the default user for a request you can use `$this->beDefaultUser()` which will return the current class, therefore it will also work with chaining e.g. `$this->beDefaultUser()->storeResource()`.
 
-If you want to use your own user for every request you can override the `getDefaultUser()` method
+If you want to use your own user for every request you can override the `getDefaultUser()` method.
 
 ```php
 protected function getDefaultUser()
