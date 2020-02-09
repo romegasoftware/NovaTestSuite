@@ -3,6 +3,7 @@
 namespace Romegadigital\NovaTestSuite\Traits;
 
 use Illuminate\Support\Arr;
+use Illuminate\Database\Eloquent\Model;
 
 trait InteractsWithNovaResources
 {
@@ -206,12 +207,16 @@ trait InteractsWithNovaResources
             ? $factory->make()
             : $factory->create();
 
-        $preMerged = collect($resource)
-            ->merge($data);
+        if (!is_array($data) && $data instanceof Model) {
+            $data = $data->toArray();
+        }
+
+        $preMerged = $resource->forceFill($data);
+        $preMerged->makeVisible($preMerged->getHidden());
 
         return $preMerged
-            ->merge($this->remapResource($preMerged))
-            ->merge($this->clearPrefilledData());
+            ->forceFill($this->remapResource($preMerged))
+            ->forceFill($this->clearPrefilledData());
     }
 
     /**
