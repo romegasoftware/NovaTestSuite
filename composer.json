@@ -13,8 +13,10 @@
         }
     ],
     "require": {
-        "illuminate/support": "^6.0|^7.0",
-        "illuminate/filesystem": "^6.0|^7.0"
+        "illuminate/support": "^7.1",
+        "illuminate/filesystem": "^7.1",
+        "illuminate/testing": "^7.1",
+        "illuminate/contracts": "^7.1"
     },
     "autoload": {
         "psr-4": {
@@ -37,7 +39,7 @@
         }
     },
     "require-dev": {
-        "orchestra/testbench": "^4.0",
+        "orchestra/testbench": "^v5.0.2",
         "dms/phpunit-arraysubset-asserts": "^0.1.0"
     }
 }
