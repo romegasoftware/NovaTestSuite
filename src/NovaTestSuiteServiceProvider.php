@@ -2,9 +2,9 @@
 
 namespace Romegadigital\NovaTestSuite;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Contracts\Support\DeferrableProvider;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Testing\TestResponse;
 use Romegadigital\NovaTestSuite\Commands\CreateResourceTestCase;
 use Romegadigital\NovaTestSuite\Commands\PublishNovaResourceTestCase;
 
