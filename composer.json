@@ -13,10 +13,10 @@
         }
     ],
     "require": {
-        "illuminate/support": "^7.1",
-        "illuminate/filesystem": "^7.1",
-        "illuminate/testing": "^7.1",
-        "illuminate/contracts": "^7.1"
+        "illuminate/support": "^8.12.3",
+        "illuminate/filesystem": "^8.12.3",
+        "illuminate/testing": "^8.12.3",
+        "illuminate/contracts": "^8.12.3"
     },
     "autoload": {
         "psr-4": {
@@ -39,7 +39,7 @@
         }
     },
     "require-dev": {
-        "orchestra/testbench": "^v5.0.2",
-        "dms/phpunit-arraysubset-asserts": "^0.1.0"
+        "orchestra/testbench": "^v6.3.0",
+        "dms/phpunit-arraysubset-asserts": "^0.2.1"
     }
 }
