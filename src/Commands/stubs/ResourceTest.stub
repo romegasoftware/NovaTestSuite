@@ -70,7 +70,7 @@ class DummyClass extends NovaResourceTestCase
         $response = $this->updateResource(['name' => $name = 'Vader'])
             ->assertOk();
 
-        $this->assertDatabaseHas((new DummyName)->getTable(), [
+        $this->assertDatabaseHas((new {{ modelName }})->getTable(), [
             'id' => $response->json('id'),
             'name' => $name,
         ]);
