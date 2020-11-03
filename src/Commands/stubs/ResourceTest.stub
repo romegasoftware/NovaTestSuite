@@ -38,7 +38,7 @@ class DummyClass extends NovaResourceTestCase
     /** @test */
     public function it_can_query_this_resource()
     {
-        factory(DummyName::class)->create();
+        DummyName::factory()->create();
 
         $this->getResources()
           ->assertOk();
