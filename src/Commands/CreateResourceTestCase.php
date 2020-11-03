@@ -35,7 +35,7 @@ class CreateResourceTestCase extends GeneratorCommand
      */
     public function handle()
     {
-        if (! $this->files->exists($this->laravel->basePath('tests/Feature/Nova/NovaResourceTestCase.php'))) {
+        if (!$this->files->exists($this->laravel->basePath('tests/Feature/Nova/NovaResourceTestCase.php'))) {
             $this->callSilent('nova:test-case');
         }
 
@@ -57,7 +57,7 @@ class CreateResourceTestCase extends GeneratorCommand
         $stub = parent::buildClass($name);
 
         return str_replace(
-            'DummyName',
+            '{{ modelName }}',
             str_replace('Test', '', $this->getNameInput()),
             $stub
         );

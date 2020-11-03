@@ -1,9 +1,9 @@
 <?php
 
-namespace DummyNamespace;
+namespace {{ namespace }};
 
-use App\DummyName;
-use App\Nova\DummyName as CurrentResource;
+use App\Models\{{ modelName }};
+use App\Nova\{{ modelName }} as CurrentResource;
 
 class DummyClass extends NovaResourceTestCase
 {
@@ -12,7 +12,7 @@ class DummyClass extends NovaResourceTestCase
      *
      * @var string
      */
-    protected $modelClass = DummyName::class;
+    protected $modelClass = {{ modelName }}::class;
 
     /**
      * Resource class.
@@ -38,7 +38,7 @@ class DummyClass extends NovaResourceTestCase
     /** @test */
     public function it_can_query_this_resource()
     {
-        DummyName::factory()->create();
+        {{ modelName }}::factory()->create();
 
         $this->getResources()
           ->assertOk();
