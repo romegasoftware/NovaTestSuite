@@ -37,7 +37,7 @@ trait InteractsWithNovaResources
      */
     protected function getDefaultUser()
     {
-        return factory(config('auth.providers.users.model'))->create();
+        return config('auth.providers.users.model')::factory()->create();
     }
 
     /**
@@ -202,7 +202,7 @@ trait InteractsWithNovaResources
      */
     private function mergeData($data = [], $isStoreRequest = false)
     {
-        $factory = factory($this->modelClass);
+        $factory = $this->modelClass::factory();
         $resource = $isStoreRequest || isset($data->id) || isset($data['id'])
             ? $factory->make()
             : $factory->create();

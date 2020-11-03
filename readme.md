@@ -42,7 +42,7 @@ The `$resource` parameter is a fresh generated model instance via `factory()` an
 $this->getResources();
 
 // retrieve a single resource = viewing a single resource in detail view
-$resource = factory(Resource::class)->create();
+$resource = Resource::factory()->create();
 $this->getResources($resource);
 ```
 
@@ -52,7 +52,7 @@ $this->getResources($resource);
 $this->storeResource();
 
 // also accepts model classes or arrays
-$resource = factory(Resource::class)->make();
+$resource = Resource::factory()->make();
 $this->storeResource($resource);
 $this->storeResource(['name' => 'Vader']);
 ```
@@ -65,7 +65,7 @@ If a resource is stored successfully the returned status code of the response is
 $this->updateResource(['name' => 'Vader']);
 
 // accepts model classes
-$resource = factory(Resource::class)->create();
+$resource = Resource::factory()->create();
 $resource->name = 'Vader';
 $this->updateResource($resource);
 ```
@@ -76,7 +76,7 @@ $this->updateResource($resource);
 $this->deleteResource();
 
 // also accepts model classes, arrays or integers (ids)
-$resource = factory(Resource::class)->create();
+$resource = Resource::factory()->create();
 $this->deleteResource($resource);
 $this->deleteResource(['id' => 12]);
 $this->deleteResource(12);
