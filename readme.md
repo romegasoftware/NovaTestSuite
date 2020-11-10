@@ -21,7 +21,8 @@ Add the following to your `composer.json`  and run `composer require romegadigit
 ### Generate Resource Test Cases
 To get you started run `php artisan nova:test resource_name`. This will generate a Resource test and publish the `NovaResourceTestCase` if it was not already published.
 
-First thing you will need to do after creating a resource tests is filling the `remapResource()` method to map the fieldnames to the nova field names.
+First thing you will need to do after creating a resource tests is filling the `remapResource()` method. This method must map the nova fields names to
+the resource properties. It's also not needed to map each property of the resource, just the ones that change or are required to be diferent.
 
 ```php
 protected function remapResource($resource)
