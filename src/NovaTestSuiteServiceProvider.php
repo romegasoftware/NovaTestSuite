@@ -5,6 +5,7 @@ namespace Romegadigital\NovaTestSuite;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Testing\TestResponse;
+use Illuminate\Support\Str;
 use Romegadigital\NovaTestSuite\Commands\CreateResourceTestCase;
 use Romegadigital\NovaTestSuite\Commands\PublishNovaResourceTestCase;
 
@@ -44,7 +45,7 @@ class NovaTestSuiteServiceProvider extends ServiceProvider implements Deferrable
 
         TestResponse::macro('assertRequiredFields', function ($fields) {
             $sessionErrors = collect($fields)->mapWithKeys(function ($field) {
-                return [$field => __('validation.required', ['attribute' => str_replace('_', ' ', $field)])];
+                return [$field => __('validation.required', ['attribute' => Str::title(str_replace('_', ' ', $field))])];
             })->all();
 
             return $this->assertSessionHasErrors($sessionErrors);

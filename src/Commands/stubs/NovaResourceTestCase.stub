@@ -30,4 +30,13 @@ abstract class NovaResourceTestCase extends TestCase
             return true;
         });
     }
+
+    protected function withoutNovaExceptionHandling($except = [])
+    {
+        Nova::serving(function () use ($except) {
+            $this->withoutExceptionHandling($except);
+        });
+
+        return $this;
+    }
 }
