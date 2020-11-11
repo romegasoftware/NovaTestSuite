@@ -202,7 +202,7 @@ trait InteractsWithNovaResources
      */
     private function mergeData($data = [], $isStoreRequest = false)
     {
-        $factory = $this->modelClass::factory();
+        $factory = isset($this->factoryClass) ? $this->factoryClass::new() : $this->modelClass::factory();
         $resource = $isStoreRequest || isset($data->id) || isset($data['id'])
             ? $factory->make()
             : $factory->create();
