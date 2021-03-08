@@ -1,6 +1,6 @@
 <?php
 
-namespace Romegadigital\NovaTestSuite\Traits;
+namespace RomegaSoftware\NovaTestSuite\Traits;
 
 use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Model;

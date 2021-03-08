@@ -5,7 +5,7 @@ namespace Tests\Feature\Nova;
 use Tests\TestCase;
 use Laravel\Nova\Nova;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Romegadigital\NovaTestSuite\Traits\InteractsWithNovaResources;
+use RomegaSoftware\NovaTestSuite\Traits\InteractsWithNovaResources;
 
 abstract class NovaResourceTestCase extends TestCase
 {

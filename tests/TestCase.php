@@ -1,6 +1,6 @@
 <?php
 
-namespace Romegadigital\NovaTestSuite\Tests;
+namespace RomegaSoftware\NovaTestSuite\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -16,7 +16,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            \Romegadigital\NovaTestSuite\NovaTestSuiteServiceProvider::class,
+            \RomegaSoftware\NovaTestSuite\NovaTestSuiteServiceProvider::class,
         ];
     }
 

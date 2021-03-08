@@ -1,6 +1,6 @@
 <?php
 
-namespace Romegadigital\NovaTestSuite\Traits;
+namespace RomegaSoftware\NovaTestSuite\Traits;
 
 trait MakesNovaHttpRequests
 {

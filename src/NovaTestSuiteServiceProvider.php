@@ -1,13 +1,13 @@
 <?php
 
-namespace Romegadigital\NovaTestSuite;
+namespace RomegaSoftware\NovaTestSuite;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Str;
-use Romegadigital\NovaTestSuite\Commands\CreateResourceTestCase;
-use Romegadigital\NovaTestSuite\Commands\PublishNovaResourceTestCase;
+use RomegaSoftware\NovaTestSuite\Commands\CreateResourceTestCase;
+use RomegaSoftware\NovaTestSuite\Commands\PublishNovaResourceTestCase;
 
 class NovaTestSuiteServiceProvider extends ServiceProvider implements DeferrableProvider
 {

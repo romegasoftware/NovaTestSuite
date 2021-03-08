@@ -24,12 +24,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Romegadigital\\NovaTestSuite\\": "./src"
+            "RomegaSoftware\\NovaTestSuite\\": "./src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Romegadigital\\NovaTestSuite\\Tests\\": "tests"
+            "RomegaSoftware\\NovaTestSuite\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -38,7 +38,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Romegadigital\\NovaTestSuite\\NovaTestSuiteServiceProvider"
+                "RomegaSoftware\\NovaTestSuite\\NovaTestSuiteServiceProvider"
             ]
         }
     },

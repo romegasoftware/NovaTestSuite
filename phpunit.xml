@@ -10,7 +10,7 @@
          stopOnFailure="false">
 
     <testsuites>
-        <testsuite name="romegadigital/nova-testing-helper Test Suite">
+        <testsuite name="RomegaSoftware/NovaTestSuite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

@@ -75,7 +75,7 @@ $this->deleteResource(12);
 ```
 
 ### actions
-Use `assertHasActions()
+Use `assertHasActions()`
 
 ### lenses
 
