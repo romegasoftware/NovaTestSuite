@@ -1,21 +1,12 @@
 # nova-test-suite
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Travis](https://img.shields.io/travis/romegadigital/nova-test-suite.svg?style=flat-square)]()
-[![Total Downloads](https://img.shields.io/packagist/dt/romegadigital/nova-test-suite.svg?style=flat-square)](https://packagist.org/packages/romegadigital/nova-test-suite)
+[![Travis](https://img.shields.io/travis/romegasoftware/nova-test-suite.svg?style=flat-square)]()
+[![Total Downloads](https://img.shields.io/packagist/dt/romegasoftware/nova-test-suite.svg?style=flat-square)](https://packagist.org/packages/romegasoftware/nova-test-suite)
 
 ## Install
-Add the following to your `composer.json`  and run `composer require romegadigital/nova-test-suite --dev`
+`composer require romegasoftware/nova-test-suite --dev`
 
-```json
-//...
-"repositories": [
-  {
-    "type": "git",
-    "url": "git@gitlab.com:romegadigitaltools/nova-test-suite.git"
-  }
-]
-```
 
 ## Usage
 ### Generate Resource Test Cases
@@ -144,11 +135,13 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Credits
 
-- [Krishan Koenig](https://github.com/romegadigital)
-- [All Contributors](https://github.com/romegadigital/nova-test-suite/contributors)
+- [Braden Keith](https://github.com/romegasoftware)
+- [Krishan Koenig](https://github.com/Naoray)
+- [Erik C. Forés](https://github.com/ConsoleTVs)
+- [All Contributors](https://github.com/romegasoftware/NovaTestSuite/contributors)
 
 ## Security
-If you discover any security-related issues, please email krishan.koenig@googlemail.com instead of using the issue tracker.
+If you discover any security-related issues, please email bkeith@romegasoftware.com instead of using the issue tracker.
 
 ## License
 The MIT License (MIT). Please see [License File](/LICENSE.md) for more information.

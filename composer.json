@@ -1,5 +1,5 @@
 {
-    "name": "romegadigital/nova-test-suite",
+    "name": "romegasoftware/nova-test-suite",
     "description": "Library to help testing laravel nova resources faster",
     "type": "package",
     "license": "MIT",
@@ -7,6 +7,10 @@
         "laravel"
     ],
     "authors": [
+        {
+            "name": "Braden Keith",
+            "email": "bkeith@romegasoftware.com"
+        },
         {
             "name": "Krishan Koenig",
             "email": "krishan.koenig@googlemail.com"
