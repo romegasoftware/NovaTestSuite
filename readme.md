@@ -1,4 +1,4 @@
-# nova-test-suite
+# Nova Test Suite
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Travis](https://img.shields.io/travis/romegasoftware/nova-test-suite.svg?style=flat-square)]()
