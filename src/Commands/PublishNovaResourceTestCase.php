@@ -21,7 +21,9 @@ class PublishNovaResourceTestCase extends Command
      */
     protected $description = 'Publishes NovaResourceTestCase class';
 
-    protected $files;
+    protected Filesystem $files;
+
+    protected string $novaTestDirectory;
 
     /**
      * Create a new command instance.
@@ -31,6 +33,11 @@ class PublishNovaResourceTestCase extends Command
         parent::__construct();
 
         $this->files = $files;
+        $this->novaTestDirectory = base_path('tests/Feature/Nova');
+
+        if ($this->file->exists($this->novaTestDirectory . '/NovaResourceTestCase.php')) {
+            $this->setHidden(true);
+        }
     }
 
     /**
@@ -42,13 +49,13 @@ class PublishNovaResourceTestCase extends Command
     {
         $this->info('Publishing NovaResourceTestCase');
 
-        if (! $this->files->isDirectory($directory = base_path('tests/Feature/Nova'))) {
-            $this->files->makeDirectory($directory, 0755, true);
+        if (!$this->files->isDirectory($this->novaTestDirectory)) {
+            $this->files->makeDirectory($this->novaTestDirectory, 0755, true);
         }
 
         $this->files->copy(
             __DIR__ . '/stubs/NovaResourceTestCase.stub',
-            $directory . '/NovaResourceTestCase.php'
+            $this->novaTestDirectory . '/NovaResourceTestCase.php'
         );
 
         $this->info('Published NovaResourceTest');

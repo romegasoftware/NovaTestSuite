@@ -2,8 +2,11 @@
 
 namespace RomegaSoftware\NovaTestSuite\Traits;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Testing\TestResponse;
 
 trait InteractsWithNovaResources
 {
@@ -35,7 +38,7 @@ trait InteractsWithNovaResources
      *
      * @return \Illuminate\Foundation\Auth\User;
      */
-    protected function getDefaultUser()
+    protected function getDefaultUser(): User
     {
         return config('auth.providers.users.model')::factory()->create();
     }
@@ -45,7 +48,7 @@ trait InteractsWithNovaResources
      *
      * @return self
      */
-    protected function beDefaultUser()
+    protected function beDefaultUser(): self
     {
         if ($this->isAuthenticated('api')) {
             return $this;
@@ -59,9 +62,9 @@ trait InteractsWithNovaResources
      *
      * @param array                               $data
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Illuminate\Testing\TestResponse
      */
-    protected function getResources($key = '')
+    protected function getResources($key = ''): TestResponse
     {
         return $this->beDefaultUser()
             ->novaGet($this->resourceClass::uriKey(), $key);
@@ -72,9 +75,9 @@ trait InteractsWithNovaResources
      *
      * @param array                               $data
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Illuminate\Testing\TestResponse
      */
-    protected function storeResource($data = [])
+    protected function storeResource($data = []): TestResponse
     {
         $resource = $this->mergeData($data, true);
 
@@ -87,9 +90,9 @@ trait InteractsWithNovaResources
      *
      * @param array                               $data
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Illuminate\Testing\TestResponse
      */
-    protected function updateResource($data = [])
+    protected function updateResource($data = []): TestResponse
     {
         $resource = $this->mergeData($data);
 
@@ -105,9 +108,9 @@ trait InteractsWithNovaResources
      *
      * @param array|string                        $data
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Illuminate\Testing\TestResponse
      */
-    protected function deleteResource($data = [])
+    protected function deleteResource($data = []): TestResponse
     {
         if (!is_array($data)) {
             $data = ['id' => $data];
@@ -126,7 +129,7 @@ trait InteractsWithNovaResources
      *
      * @return array
      */
-    protected function remapResource($resource)
+    protected function remapResource($resource): array
     {
         return [];
     }
@@ -136,7 +139,7 @@ trait InteractsWithNovaResources
      *
      * @param array $actions
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Illuminate\Testing\TestResponse
      */
     protected function assertHasActions($actions)
     {
@@ -152,9 +155,9 @@ trait InteractsWithNovaResources
      *
      * @param array $filters
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Illuminate\Testing\TestResponse
      */
-    protected function assertHasFilters($filters)
+    protected function assertHasFilters($filters): TestResponse
     {
         return $this->beDefaultUser()
             ->novaRequest('get', $this->resourceClass::uriKey() . '/filters')
@@ -168,9 +171,9 @@ trait InteractsWithNovaResources
      *
      * @param array $lenses
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Illuminate\Testing\TestResponse
      */
-    protected function assertHasLenses($lenses)
+    protected function assertHasLenses($lenses): TestResponse
     {
         return $this->beDefaultUser()
             ->novaRequest('get', $this->resourceClass::uriKey() . '/lenses')
@@ -186,7 +189,7 @@ trait InteractsWithNovaResources
      *
      * @return array
      */
-    private function mapIndexToName($list)
+    private function mapIndexToName($list): array
     {
         return collect($list)->mapWithKeys(function ($item, $index) {
             return [$index => ['name' => $item]];
@@ -196,26 +199,24 @@ trait InteractsWithNovaResources
     /**
      * Merge resource data.
      *
-     * @param array $data
+     * @param array|Arrayable $data
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    private function mergeData($data = [], $isStoreRequest = false)
+    private function mergeData($data = [], $isStoreRequest = false): Model
     {
-        $factory = isset($this->factoryClass) ? $this->factoryClass::new() : $this->modelClass::factory();
-        $resource = $isStoreRequest || isset($data->id) || isset($data['id'])
-            ? $factory->make()
-            : $factory->create();
-
         if (!is_array($data) && $data instanceof Model) {
             $data = $data->toArray();
         }
 
-        $preMerged = $resource->forceFill($data);
-        $preMerged->makeVisible($preMerged->getHidden());
+        $factory = isset($this->factoryClass) ? $this->factoryClass::new() : $this->modelClass::factory();
+        $resource = $isStoreRequest || isset($data['id'])
+            ? $factory->make($data)
+            : $factory->create($data);
 
-        return $preMerged
-            ->forceFill($this->remapResource($preMerged))
+        return $resource
+            ->makeVisible($resource->getHidden())
+            ->forceFill($this->remapResource($resource))
             ->forceFill($this->clearPrefilledData());
     }
 
@@ -226,7 +227,7 @@ trait InteractsWithNovaResources
      *
      * @return self
      */
-    protected function setNullValuesOn($keys)
+    protected function setNullValuesOn($keys): self
     {
         if (!is_array($keys)) {
             $keys = func_get_args();
@@ -242,7 +243,7 @@ trait InteractsWithNovaResources
      *
      * @return array
      */
-    private function clearPrefilledData()
+    private function clearPrefilledData(): array
     {
         return tap($this->prefillValues, function () {
             $this->prefillValues = [];

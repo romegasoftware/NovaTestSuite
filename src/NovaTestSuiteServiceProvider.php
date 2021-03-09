@@ -29,16 +29,6 @@ class NovaTestSuiteServiceProvider extends ServiceProvider implements Deferrable
      */
     public function boot()
     {
-        TestResponse::macro('dumpErrors', function () {
-            if (app('session.store')->has('errors')) {
-                dump(app('session.store')->get('errors')->getBag('default'));
-            }
-
-            dump($this->json());
-
-            return $this;
-        });
-
         TestResponse::macro('assertNovaFailed', function () {
             return $this->assertRedirect();
         });
@@ -46,7 +36,11 @@ class NovaTestSuiteServiceProvider extends ServiceProvider implements Deferrable
         TestResponse::macro('assertRequiredFields', function ($fields) {
             $sessionErrors = collect($fields)->mapWithKeys(function ($field, $key) {
                 $key = is_string($key) ? $key : $field;
-                return [$key => __('validation.required', ['attribute' => Str::title(str_replace('_', ' ', $field))])];
+                $attribute = is_callable($field)
+                    ? $field($key)
+                    : Str::of($field)->studly()->snake(' ')->title();
+
+                return [$key => __('validation.required', ['attribute' => $attribute])];
             })->all();
 
             return $this->assertSessionHasErrors($sessionErrors);

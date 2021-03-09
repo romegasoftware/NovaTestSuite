@@ -1,49 +1,49 @@
 {
-    "name": "romegasoftware/nova-test-suite",
-    "description": "Library to help testing laravel nova resources faster",
-    "type": "package",
-    "license": "MIT",
-    "keywords": [
-        "laravel"
-    ],
-    "authors": [
-        {
-            "name": "Braden Keith",
-            "email": "bkeith@romegasoftware.com"
-        },
-        {
-            "name": "Krishan Koenig",
-            "email": "krishan.koenig@googlemail.com"
-        }
-    ],
-    "require": {
-        "illuminate/support": "^7.0|^8.0",
-        "illuminate/filesystem": "^7.0|^8.0",
-        "illuminate/testing": "^7.0|^8.0",
-        "illuminate/contracts": "^7.0|^8.0"
+  "name": "romegasoftware/nova-test-suite",
+  "description": "Library to help testing laravel nova resources faster",
+  "type": "package",
+  "license": "MIT",
+  "keywords": [
+    "laravel"
+  ],
+  "authors": [
+    {
+      "name": "Braden Keith",
+      "email": "bkeith@romegasoftware.com"
     },
-    "autoload": {
-        "psr-4": {
-            "RomegaSoftware\\NovaTestSuite\\": "./src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "RomegaSoftware\\NovaTestSuite\\Tests\\": "tests"
-        }
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit"
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "RomegaSoftware\\NovaTestSuite\\NovaTestSuiteServiceProvider"
-            ]
-        }
-    },
-    "require-dev": {
-        "orchestra/testbench": "^v5.0|^v6.0",
-        "dms/phpunit-arraysubset-asserts": "^0.2.1"
+    {
+      "name": "Krishan Koenig",
+      "email": "krishan.koenig@googlemail.com"
     }
+  ],
+  "require": {
+    "illuminate/support": "^8.0",
+    "illuminate/filesystem": "^8.0",
+    "illuminate/testing": "^8.0",
+    "illuminate/contracts": "^8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "RomegaSoftware\\NovaTestSuite\\": "./src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "RomegaSoftware\\NovaTestSuite\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "RomegaSoftware\\NovaTestSuite\\NovaTestSuiteServiceProvider"
+      ]
+    }
+  },
+  "require-dev": {
+    "orchestra/testbench": "^v6.0",
+    "dms/phpunit-arraysubset-asserts": "^0.2.1"
+  }
 }

@@ -2,6 +2,8 @@
 
 namespace RomegaSoftware\NovaTestSuite\Traits;
 
+use Illuminate\Testing\TestResponse;
+
 trait MakesNovaHttpRequests
 {
     /**
@@ -10,9 +12,9 @@ trait MakesNovaHttpRequests
      * @param string     $resourceKey
      * @param string|int $key
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Illuminate\Testing\TestResponse
      */
-    protected function novaGet($resourceKey, $key = null)
+    protected function novaGet($resourceKey, $key = null): TestResponse
     {
         return $this->novaRequest('get', $resourceKey . ($key ? "/$key" : ''));
     }
@@ -23,9 +25,9 @@ trait MakesNovaHttpRequests
      * @param string $resourceKey
      * @param array  $data
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Illuminate\Testing\TestResponse
      */
-    protected function novaStore($resourceKey, $data)
+    protected function novaStore($resourceKey, $data): TestResponse
     {
         return $this->novaRequest('post', $resourceKey, $data);
     }
@@ -36,9 +38,9 @@ trait MakesNovaHttpRequests
      * @param string $resourceKey
      * @param array  $data
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Illuminate\Testing\TestResponse
      */
-    protected function novaUpdate($resourceKey, $data)
+    protected function novaUpdate($resourceKey, $data): TestResponse
     {
         return $this->novaRequest('put', $resourceKey, $data);
     }
@@ -49,9 +51,9 @@ trait MakesNovaHttpRequests
      * @param string $resourceKey
      * @param array  $ids
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Illuminate\Testing\TestResponse
      */
-    protected function novaDelete($resourceKey, $ids)
+    protected function novaDelete($resourceKey, $ids): TestResponse
     {
         return $this->novaRequest('delete', $resourceKey, [
             'resources' => $ids,
@@ -65,9 +67,9 @@ trait MakesNovaHttpRequests
      * @param string $resourceKey
      * @param array  $data
      *
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Illuminate\Testing\TestResponse
      */
-    protected function novaRequest($method, $resourceKey, $data = [])
+    protected function novaRequest($method, $resourceKey, $data = []): TestResponse
     {
         return $this->{$method}("/nova-api/$resourceKey", $data);
     }
