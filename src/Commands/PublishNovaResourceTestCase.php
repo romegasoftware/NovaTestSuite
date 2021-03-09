@@ -35,7 +35,7 @@ class PublishNovaResourceTestCase extends Command
         $this->files = $files;
         $this->novaTestDirectory = base_path('tests/Feature/Nova');
 
-        if ($this->file->exists($this->novaTestDirectory . '/NovaResourceTestCase.php')) {
+        if ($this->files->exists($this->novaTestDirectory . '/NovaResourceTestCase.php')) {
             $this->setHidden(true);
         }
     }
