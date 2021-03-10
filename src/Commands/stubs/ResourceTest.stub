@@ -28,7 +28,7 @@ class DummyClass extends NovaResourceTestCase
      *
      * @return array
      */
-    protected function remapResource($resource)
+    protected function remapResource($resource): array
     {
         return [
             //...

@@ -78,8 +78,10 @@ $this->deleteResource(12);
 Use `assertHasActions()`
 
 ### lenses
+use `assertHasLenses()`
 
 ### filters
+use `assertHasFilters()`
 
 ### Asserting a request has failed
 Since failed nova request return a redirect with status code `301` we introduced a new method `assertNovaFailed()` which checks for this without having to think about what status code a failed nova response returns.
@@ -111,14 +113,19 @@ protected function getDefaultUser()
 ```
 
 ### Debugging failing requests
-To debug more easily why your nova request is failing you can chain `dumpErrors()` before you make any assertions about the status. This method will dump all session errors and the json response of the request.
+To debug more easily why your nova request is failing you can chain `assertSessionDoesntHaveErrors()` before you make any assertions about the status. This method will dump all session errors and the json response of the request.
 
 ```php
 $this->storeResource()
-  ->dumpErrors();
+  ->assertSessionDoesntHaveErrors();
 ```
 
-**Note:** `dumpErrors()` is only for debugging purposes. It should always be removed before committing any code.
+If you still can't figure out why you are receiving the status code of the response, try to get behind the reason of the response with `withoutNovaExceptionHandling()`. This method call will create a callback which calls the underlying `withoutExceptionHandling()` as soon as the Nova middleware runs. You can also chain the calls:
+
+```php
+$this->withoutNovaExceptionHandling()
+  ->storeResource();
+```
 
 ## Testing
 Run the tests with:
