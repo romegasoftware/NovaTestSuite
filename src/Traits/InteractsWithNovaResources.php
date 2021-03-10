@@ -82,7 +82,7 @@ trait InteractsWithNovaResources
         $resource = $this->mergeData($data, true);
 
         return $this->beDefaultUser()
-            ->novaStore($this->resourceClass::uriKey(), $resource->toArray());
+            ->novaStore($this->resourceClass::uriKey(), $resource);
     }
 
     /**
@@ -97,10 +97,7 @@ trait InteractsWithNovaResources
         $resource = $this->mergeData($data);
 
         return $this->beDefaultUser()
-            ->novaUpdate(
-                $this->resourceClass::uriKey() . '/' . $resource['id'],
-                $resource->toArray()
-            );
+            ->novaUpdate($this->resourceClass::uriKey() . '/' . $resource['id'], $resource);
     }
 
     /**
@@ -116,7 +113,7 @@ trait InteractsWithNovaResources
             $data = ['id' => $data];
         }
 
-        $resource = Arr::only($this->mergeData($data)->toArray(), 'id');
+        $resource = Arr::only($this->mergeData($data), 'id');
 
         return $this->beDefaultUser()
             ->novaDelete($this->resourceClass::uriKey(), $resource);
@@ -203,7 +200,7 @@ trait InteractsWithNovaResources
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    private function mergeData($data = [], $isStoreRequest = false): Model
+    private function mergeData($data = [], $isStoreRequest = false): array
     {
         if (!is_array($data) && $data instanceof Model) {
             $data = $data->toArray();
@@ -214,10 +211,10 @@ trait InteractsWithNovaResources
             ? $factory->make($data)
             : $factory->create($data);
 
-        return $resource
-            ->makeVisible($resource->getHidden())
-            ->forceFill($this->remapResource($resource))
+        $resource->makeVisible($resource->getHidden())
             ->forceFill($this->clearPrefilledData());
+
+        return array_merge($resource->toArray(), $this->remapResource($resource));
     }
 
     /**

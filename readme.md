@@ -16,7 +16,7 @@ First thing you will need to do after creating a resource tests is filling the `
 the resource properties. It's also not needed to map each property of the resource, just the ones that change or are required to be diferent.
 
 ```php
-protected function remapResource($resource)
+protected function remapResource($resource): array
 {
     return [
         'location' => $resource->location_id,
