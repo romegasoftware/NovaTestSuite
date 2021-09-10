@@ -2,6 +2,7 @@
 
 namespace RomegaSoftware\NovaTestSuite\Traits;
 
+use Illuminate\Support\Arr;
 use Illuminate\Testing\TestResponse;
 
 trait MakesNovaHttpRequests
@@ -29,7 +30,12 @@ trait MakesNovaHttpRequests
      */
     protected function novaStore($resourceKey, $data): TestResponse
     {
-        return $this->novaRequest('post', $resourceKey, $data);
+        $query = Arr::query([
+            'editing' => true,
+            'editMode' => 'create'
+        ]);
+
+        return $this->novaRequest('post', $resourceKey, $data, $query);
     }
 
     /**
@@ -42,7 +48,12 @@ trait MakesNovaHttpRequests
      */
     protected function novaUpdate($resourceKey, $data): TestResponse
     {
-        return $this->novaRequest('put', $resourceKey, $data);
+        $query = Arr::query([
+            'editing' => true,
+            'editMode' => 'update'
+        ]);
+
+        return $this->novaRequest('put', $resourceKey, $data, $query);
     }
 
     /**
@@ -69,8 +80,8 @@ trait MakesNovaHttpRequests
      *
      * @return \Illuminate\Testing\TestResponse
      */
-    protected function novaRequest($method, $resourceKey, $data = []): TestResponse
+    protected function novaRequest($method, $resourceKey, $data = [], $query = ''): TestResponse
     {
-        return $this->{$method}("/nova-api/$resourceKey", $data);
+        return $this->{$method}("/nova-api/$resourceKey?$query", $data);
     }
 }
