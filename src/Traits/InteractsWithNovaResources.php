@@ -50,7 +50,7 @@ trait InteractsWithNovaResources
      */
     protected function beDefaultUser(): self
     {
-        if ($this->isAuthenticated('api')) {
+        if ($this->isAuthenticated(config('nova.guard'))) {
             return $this;
         }
 
