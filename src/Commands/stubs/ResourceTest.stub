@@ -58,7 +58,9 @@ class DummyClass extends NovaResourceTestCase
      */
     public function it_fails_to_store_this_resource_without_all_required_fields($saveMethod)
     {
-        $this->setNullValuesOn($required = [])
+        $this->setNullValuesOn($required = [
+                'name',
+            ])
             ->$saveMethod()
             ->assertRequiredFields($required)
             ->assertNovaFailed();
@@ -67,7 +69,9 @@ class DummyClass extends NovaResourceTestCase
     /** @test */
     public function it_can_update_this_resource()
     {
-        $response = $this->updateResource(['name' => $name = 'Vader'])
+        $response = $this->updateResource([
+                'name' => $name = 'Vader',
+            ])
             ->assertOk();
 
         $this->assertDatabaseHas((new {{ modelName }})->getTable(), [
@@ -81,6 +85,14 @@ class DummyClass extends NovaResourceTestCase
     {
         $this->deleteResource()
             ->assertOk();
+    }
+
+    /** @test **/
+    public function it_has_relationships()
+    {
+        // $this->assertHasManyRelationships([
+        //    'product',
+        // ]);
     }
 
     public function storeMethodProvider()
