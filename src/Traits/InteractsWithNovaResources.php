@@ -10,7 +10,7 @@ use Illuminate\Testing\TestResponse;
 
 trait InteractsWithNovaResources
 {
-    use MakesNovaHttpRequests;
+    use MakesNovaHttpRequests, AssertsNovaRelationships;
 
     /**
      * Model Class of the resource.
@@ -192,7 +192,7 @@ trait InteractsWithNovaResources
             return [$index => ['name' => $item]];
         })->toArray();
     }
-
+    
     /**
      * Merge resource data.
      *

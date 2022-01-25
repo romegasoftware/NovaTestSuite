@@ -74,6 +74,25 @@ $this->deleteResource(['id' => 12]);
 $this->deleteResource(12);
 ```
 
+### relationships
+
+```php
+$this->assertHasManyRelationships([
+    'product',
+]);
+$this->assertBelongsToRelationships([
+    'user',
+]);
+```
+
+`assertHasOneRelationships(array)`
+`assertHasManyRelationships(array)`
+`assertBelongsToRelationships(array)`
+`assertBelongsToManyRelationships(array)`
+`assertMorphToRelationships(array)`
+`assertMorphOneRelationships(array)`
+`assertMorphManyRelationships(array)`
+
 ### actions
 Use `assertHasActions()`
 
