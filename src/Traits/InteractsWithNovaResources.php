@@ -34,6 +34,13 @@ trait InteractsWithNovaResources
     private $prefillValues = [];
 
     /**
+     * Nova filters for the next request.
+     *
+     * @var array
+     */
+    private $filters = [];
+
+    /**
      * Returns default user.
      *
      * @return \Illuminate\Foundation\Auth\User;
@@ -66,8 +73,64 @@ trait InteractsWithNovaResources
      */
     protected function getResources($key = ''): TestResponse
     {
+        $query = $this->buildGetQuery();
+
         return $this->beDefaultUser()
-            ->novaGet($this->resourceClass::uriKey(), $key);
+            ->novaGet($this->resourceClass::uriKey(), $key, $query ?? '');
+    }
+
+    /**
+     * Build URL query for get request.
+     *
+     * @return string|null
+     */
+    private function buildGetQuery(): ?string
+    {
+        $filters = [];
+
+        foreach ($this->getFilters() as $class => $value) {
+            $filters[] = compact('class', 'value');
+        }
+
+        if (count($filters) > 0) {
+            $query = http_build_query(['filters' => base64_encode(json_encode($filters))]);
+
+            $this->filters = [];
+        }
+
+        return $query ?? null;
+    }
+
+    /**
+     * Append Nova filters to the next request.
+     *
+     * @param \Laravel\Nova\Filters\Filter|string|array $class
+     * @param mixed $value
+     * @return $this
+     */
+    protected function withFilter($class, $value = null): self
+    {
+        if (is_array($class)) {
+            foreach ($class as $filterClass => $filterValue) {
+                $this->filters[$filterClass] = $filterValue;
+            }
+
+            return $this;
+        }
+
+        $this->filters[$class] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Get stored filters.
+     *
+     * @return array
+     */
+    protected function getFilters(): array
+    {
+        return $this->filters;
     }
 
     /**
@@ -192,7 +255,7 @@ trait InteractsWithNovaResources
             return [$index => ['name' => $item]];
         })->toArray();
     }
-    
+
     /**
      * Merge resource data.
      *
