@@ -17,6 +17,8 @@
     }
   ],
   "require": {
+    "php": "^7.3|^8.0",
+    "ext-json": "*",
     "illuminate/support": "^8.0",
     "illuminate/filesystem": "^8.0",
     "illuminate/testing": "^8.0",

@@ -10,14 +10,15 @@ trait MakesNovaHttpRequests
     /**
      * Makes a nova get request.
      *
-     * @param string     $resourceKey
-     * @param string|int $key
+     * @param string $resourceKey
+     * @param null $key
+     * @param string $query
      *
      * @return \Illuminate\Testing\TestResponse
      */
-    protected function novaGet($resourceKey, $key = null): TestResponse
+    protected function novaGet($resourceKey, $key = null, $query = ''): TestResponse
     {
-        return $this->novaRequest('get', $resourceKey . ($key ? "/$key" : ''));
+        return $this->novaRequest('get', $resourceKey . ($key ? "/$key" : ''), [], $query);
     }
 
     /**
