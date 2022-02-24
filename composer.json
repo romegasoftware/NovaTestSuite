@@ -17,12 +17,12 @@
     }
   ],
   "require": {
-    "php": "^7.3|^8.0",
+    "php": "^7.3|^8.0.2",
     "ext-json": "*",
-    "illuminate/support": "^8.0",
-    "illuminate/filesystem": "^8.0",
-    "illuminate/testing": "^8.0",
-    "illuminate/contracts": "^8.0"
+    "illuminate/support": "^8.0|^9.0",
+    "illuminate/filesystem": "^8.0|^9.0",
+    "illuminate/testing": "^8.0|^9.0",
+    "illuminate/contracts": "^8.0|^9.0"
   },
   "autoload": {
     "psr-4": {
