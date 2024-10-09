@@ -189,7 +189,7 @@ trait InteractsWithNovaResources
      *
      * @return array
      */
-    protected function remapResource($resource): array
+    protected function remapResource(\Illuminate\Database\Eloquent\Model $resource): array
     {
         return [];
     }
