@@ -17,12 +17,12 @@
     }
   ],
   "require": {
-    "php": "^7.3|^8.0|^8.1|^8.2",
+    "php": "*",
     "ext-json": "*",
-    "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0",
-    "illuminate/filesystem": "^8.0|^9.0|^10.0|^11.0|^12.0",
-    "illuminate/testing": "^8.0|^9.0|^10.0|^11.0|^12.0",
-    "illuminate/contracts": "^8.0|^9.0|^10.0|^11.0|^12.0"
+    "illuminate/support": "*",
+    "illuminate/filesystem": "*",
+    "illuminate/testing": "*",
+    "illuminate/contracts": "*"
   },
   "autoload": {
     "psr-4": {
@@ -43,9 +43,5 @@
         "RomegaSoftware\\NovaTestSuite\\NovaTestSuiteServiceProvider"
       ]
     }
-  },
-  "require-dev": {
-    "orchestra/testbench": "^v6.0",
-    "dms/phpunit-arraysubset-asserts": "^0.2.1"
   }
 }
